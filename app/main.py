@@ -29,7 +29,12 @@ class UploadPlan(BaseModel):
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "version": __version__, "env": get_settings().app_env}
+    return {
+        "status": "ok",
+        "version": __version__,
+        "env": get_settings().app_env,
+        "max_upload_bytes": str(get_settings().max_upload_bytes),
+    }
 
 
 @app.post("/uploads", response_model=UploadPlan, status_code=201)
